@@ -1,0 +1,269 @@
+@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+@layer base {
+  :root {
+    /* Dark futuristic theme */
+    --background: 240 10% 4%;
+    --foreground: 210 40% 98%;
+
+    --card: 240 10% 8%;
+    --card-foreground: 210 40% 98%;
+
+    --popover: 240 10% 6%;
+    --popover-foreground: 210 40% 98%;
+
+    /* Neon Cyan Primary */
+    --primary: 187 100% 42%;
+    --primary-foreground: 240 10% 4%;
+
+    /* Electric Purple Secondary */
+    --secondary: 270 91% 65%;
+    --secondary-foreground: 210 40% 98%;
+
+    /* Neon Green Accent */
+    --accent: 142 76% 36%;
+    --accent-foreground: 210 40% 98%;
+
+    --muted: 240 10% 15%;
+    --muted-foreground: 215 20% 65%;
+
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 210 40% 98%;
+
+    --border: 240 10% 20%;
+    --input: 240 10% 15%;
+    --ring: 187 100% 42%;
+
+    --radius: 0.75rem;
+
+    /* Custom design tokens */
+    --glow-primary: 0 0 20px hsl(187 100% 42% / 0.5);
+    --glow-secondary: 0 0 20px hsl(270 91% 65% / 0.5);
+    --glow-accent: 0 0 20px hsl(142 76% 36% / 0.5);
+    
+    --gradient-hero: linear-gradient(135deg, hsl(240 10% 4%) 0%, hsl(240 15% 10%) 50%, hsl(240 10% 4%) 100%);
+    --gradient-card: linear-gradient(145deg, hsl(240 10% 10%) 0%, hsl(240 10% 6%) 100%);
+    --gradient-neon: linear-gradient(90deg, hsl(187 100% 42%), hsl(270 91% 65%), hsl(142 76% 36%));
+    --gradient-text: linear-gradient(90deg, hsl(187 100% 50%), hsl(270 91% 70%));
+
+    /* Sidebar */
+    --sidebar-background: 240 10% 6%;
+    --sidebar-foreground: 210 40% 98%;
+    --sidebar-primary: 187 100% 42%;
+    --sidebar-primary-foreground: 240 10% 4%;
+    --sidebar-accent: 240 10% 15%;
+    --sidebar-accent-foreground: 210 40% 98%;
+    --sidebar-border: 240 10% 20%;
+    --sidebar-ring: 187 100% 42%;
+  }
+
+  .dark {
+    --background: 240 10% 4%;
+    --foreground: 210 40% 98%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground font-sans antialiased;
+    font-family: 'Space Grotesk', sans-serif;
+  }
+
+  code, pre, .font-mono {
+    font-family: 'JetBrains Mono', monospace;
+  }
+}
+
+@layer components {
+  /* Neon glow effects */
+  .glow-primary {
+    box-shadow: var(--glow-primary);
+  }
+
+  .glow-secondary {
+    box-shadow: var(--glow-secondary);
+  }
+
+  .glow-accent {
+    box-shadow: var(--glow-accent);
+  }
+
+  /* Text gradient */
+  .text-gradient {
+    background: var(--gradient-neon);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  /* Card hover effects */
+  .card-interactive {
+    @apply relative overflow-hidden transition-all duration-300;
+    background: var(--gradient-card);
+  }
+
+  .card-interactive::before {
+    content: '';
+    @apply absolute inset-0 opacity-0 transition-opacity duration-300;
+    background: linear-gradient(135deg, hsl(187 100% 42% / 0.1) 0%, transparent 50%);
+  }
+
+  .card-interactive:hover::before {
+    @apply opacity-100;
+  }
+
+  .card-interactive:hover {
+    @apply border-primary/50;
+    box-shadow: var(--glow-primary);
+  }
+
+  /* Terminal style */
+  .terminal {
+    @apply bg-card border border-border rounded-lg p-4 font-mono text-sm;
+  }
+
+  .terminal-line::before {
+    content: '>';
+    @apply text-primary mr-2;
+  }
+
+  /* Pulse animation for robot */
+  .pulse-glow {
+    animation: pulseGlow 2s ease-in-out infinite;
+  }
+
+  /* Grid pattern background */
+  .bg-grid {
+    background-image: 
+      linear-gradient(hsl(240 10% 15% / 0.5) 1px, transparent 1px),
+      linear-gradient(90deg, hsl(240 10% 15% / 0.5) 1px, transparent 1px);
+    background-size: 50px 50px;
+  }
+
+  /* Scanline effect */
+  .scanlines::after {
+    content: '';
+    @apply absolute inset-0 pointer-events-none;
+    background: repeating-linear-gradient(
+      0deg,
+      transparent,
+      transparent 2px,
+      hsl(0 0% 0% / 0.03) 2px,
+      hsl(0 0% 0% / 0.03) 4px
+    );
+  }
+
+  /* Level badges */
+  .badge-beginner {
+    @apply bg-accent/20 text-accent border-accent/50;
+  }
+
+  .badge-intermediate {
+    @apply bg-primary/20 text-primary border-primary/50;
+  }
+
+  .badge-advanced {
+    @apply bg-secondary/20 text-secondary border-secondary/50;
+  }
+}
+
+@layer utilities {
+  /* Animations */
+  @keyframes pulseGlow {
+    0%, 100% {
+      filter: drop-shadow(0 0 10px hsl(187 100% 42% / 0.5));
+    }
+    50% {
+      filter: drop-shadow(0 0 25px hsl(187 100% 42% / 0.8));
+    }
+  }
+
+  @keyframes float {
+    0%, 100% {
+      transform: translateY(0px);
+    }
+    50% {
+      transform: translateY(-10px);
+    }
+  }
+
+  @keyframes slideIn {
+    from {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  @keyframes typewriter {
+    from {
+      width: 0;
+    }
+    to {
+      width: 100%;
+    }
+  }
+
+  @keyframes blink {
+    0%, 50% {
+      opacity: 1;
+    }
+    51%, 100% {
+      opacity: 0;
+    }
+  }
+
+  @keyframes dataFlow {
+    0% {
+      stroke-dashoffset: 100;
+    }
+    100% {
+      stroke-dashoffset: 0;
+    }
+  }
+
+  .animate-float {
+    animation: float 3s ease-in-out infinite;
+  }
+
+  .animate-slide-in {
+    animation: slideIn 0.6s ease-out forwards;
+  }
+
+  .animate-typewriter {
+    overflow: hidden;
+    white-space: nowrap;
+    animation: typewriter 2s steps(40) forwards;
+  }
+
+  .animate-blink {
+    animation: blink 1s step-end infinite;
+  }
+
+  .animate-data-flow {
+    animation: dataFlow 2s linear infinite;
+  }
+
+  /* Stagger children animations */
+  .stagger-children > * {
+    opacity: 0;
+    animation: slideIn 0.5s ease-out forwards;
+  }
+
+  .stagger-children > *:nth-child(1) { animation-delay: 0.1s; }
+  .stagger-children > *:nth-child(2) { animation-delay: 0.2s; }
+  .stagger-children > *:nth-child(3) { animation-delay: 0.3s; }
+  .stagger-children > *:nth-child(4) { animation-delay: 0.4s; }
+  .stagger-children > *:nth-child(5) { animation-delay: 0.5s; }
+  .stagger-children > *:nth-child(6) { animation-delay: 0.6s; }
+}
